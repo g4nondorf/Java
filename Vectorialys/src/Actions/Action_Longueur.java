@@ -11,7 +11,7 @@ package Actions;
  */
 public class Action_Longueur {
     
-        double longr;
+        /*double longr;
         Segment Seg = Canvas.getSeg();
-        longr = Seg.longueur();
+        longr = Seg.longueur();*/
 }
