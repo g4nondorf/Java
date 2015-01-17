@@ -13,13 +13,13 @@ import Model.*;
 
 public class Vue_Rotation {
     
-    private double angle;
+    private static double angle;
 
-    public double getAngle() {
+    public static double getAngle() {
         return angle;
     }
     
-    public void saisir(){
+    public static void saisir(){//récupére l'angle de rotation
         System.out.println("Quelle est la valeur de l'angle pour la rotation?");
         angle = Clavier.lireDouble();
     }

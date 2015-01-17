@@ -20,6 +20,7 @@ public class Vue_Affichage {
     }
     
     public void afficher(){
+        //récupére les données du segment et en affiche les données
         Segment Seg = Canvas.getSeg();
         Sommet s1 = Seg.getS1();
         Sommet s2 = Seg.getS2();

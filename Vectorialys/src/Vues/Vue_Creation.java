@@ -10,9 +10,9 @@ package Vues;
  * @author Moi
  */
 public class Vue_Creation {
-    private double x1, y1, x2, y2;
+    private static double x1, y1, x2, y2;
     
-    public void Saisie(){
+    public static void Saisie(){
         System.out.println("Valeur de x1?");
         x1 = Clavier.lireDouble();
         System.out.println("Valeur de y1?");

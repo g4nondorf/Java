@@ -5,15 +5,20 @@
  */
 package Actions;
 
-import Model.Canvas;
-import Model.Segment;
-
+import Model.*;
+import Vues.Vue_Rotation;
 /**
  *
  * @author Moi
  */
 public class Action_Rotation {
     
-        /*Segment Seg = Canvas.getSeg();
-        Seg.rotation(angle);*/
+    public void actionRotation(){
+        Vue_Rotation.saisir();//récupére la valeur de l'angle de rotation
+        double angle2 = Vue_Rotation.getAngle();//met la valeur dans la variable angle2
+        Segment Seg = Canvas.getSeg();//récupére les données du segment
+        Seg.rotation(angle2);//applique la rotation
+        System.out.println("Rotation effectué SIR!");
+    }
+        
 }

@@ -12,7 +12,6 @@ package Model;
 public class Segment {
     
     private Sommet s1;
-    
     private Sommet s2;
 
     public void setS1(Sommet s1) {
@@ -36,7 +35,7 @@ public class Segment {
         this.s2 = s2;
     }
     
-    public void rotation(double angle){
+    public void rotation(double angle){//effectu une rotation du segment et enregistre les nouvelles données
         double x1 = s1.getX();
         double y1 = s1.getY();
         double x2 = s2.getX();
@@ -48,10 +47,10 @@ public class Segment {
         s1.setX(x1);
         s1.setY(y1);
         
-        Canvas.setSeg(this);
+        Canvas.setSeg(this);//enregistrement des nouvelles données
     }
     
-    public double longueur(){
+    public double longueur(){//calcul la longueur du segment et retourne un double
         double x1 = s1.getX();
         double y1 = s1.getY();
         double x2 = s2.getX();

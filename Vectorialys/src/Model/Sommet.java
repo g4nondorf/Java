@@ -12,7 +12,7 @@ package Model;
 public class Sommet {
     
     private double x, y;
-
+    
     public void setX(double x) {
         this.x = x;
     }
@@ -29,12 +29,12 @@ public class Sommet {
         return y;
     }
 
-    public Sommet(double x, double y) {
+    public Sommet(double x, double y) {//creer l'objet sommet
         this.x = x;
         this.y = y;
     }
     
-    public void translater(double val_trans){
+    public void translater(double val_trans){//atribu de nouvelles valeur a un point pour une translation
         x = x + val_trans;
         y = y + val_trans;
     }

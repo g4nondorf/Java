@@ -13,13 +13,13 @@ import Model.*;
 
 public class Vue_Translation {
     
-    private double val_trans;
+    private static double val_trans;
 
-    public double getVal_trans() {
+    public static double getVal_trans() {
         return val_trans;
     }
     
-    public void saisir(){
+    public static void saisir(){//récupére la valeur de translation
         System.out.println("Quelle est la valeur de translation que vous souhaitez?");
         val_trans = Clavier.lireDouble();
     }

@@ -5,9 +5,8 @@
  */
 package Actions;
 
-import Model.Canvas;
-import Model.Segment;
-import Model.Sommet;
+import Model.*;
+import Vues.Vue_Translation;
 
 /**
  *
@@ -15,9 +14,15 @@ import Model.Sommet;
  */
 public class Action_Translation {
     
-        /*Segment Seg = Canvas.getSeg();
+    public void actionTranslation(){
+        Vue_Translation.saisir();//demande la valeur de translation a l'utilisateur
+        double val_transl = Vue_Translation.getVal_trans();///met la valeur de translation dans la variable val_transl
+        Segment Seg = Canvas.getSeg();//récupére les données du segment
         Sommet s1 = Seg.getS1();
         Sommet s2 = Seg.getS2();
-        s1.translater(val_trans);
-        s2.translater(val_trans);*/
+        s1.translater(val_transl);//applique la translation aux deux sommets
+        s2.translater(val_transl);
+        System.out.println("Translation effectué SIR!");
+    }
+    
 }
