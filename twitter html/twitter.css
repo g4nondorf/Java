@@ -1,0 +1,53 @@
+body{
+	background: rgb(192,222,237);
+	font-family: comicsansms;
+}
+main{
+	width: 50%;
+	border-radius: 10px;
+	background: white;
+	margin: auto;
+	padding: 10px;
+}
+footer{
+	background: rgb(142,193,218);
+}
+img{
+	border-radius: 150px;
+	width: 90px;
+	margin: 10px;
+}
+div{
+	display: inline-block;
+}
+#comment{
+	display: flex;
+	align-items: center;
+
+}
+h1{
+	display: inline-block;
+}
+h2{
+	display: inline-block;
+	font-size: 0.9em;
+	color: gray;
+}
+form{
+	display: flex;
+	flex: 1 1 auto;
+	height: 40px;
+}
+input:first-child{
+	flex: 1;
+}	
+input:last-child{
+	border-radius: 3px;
+}
+a{
+	color: gray;
+	text-decoration: none;
+}
+time{
+	color: gray;
+	}
