@@ -4,12 +4,13 @@ body{
 }
 
 main{
-	box-shadow : 4px 4px 4px #AAA;
+	box-shadow : 0 0 8px #888;
 	background-color : white;
-	border-radius : 15px;
+	border-radius : 10px;
 	width : 50%;
+	min-width : 30em ;
 	margin : auto;
-	margin-bottom : 100px;
+	margin-bottom : 8em;
 }
 
 footer{
@@ -33,7 +34,7 @@ img{
 	margin-right : 20px;
 }
 
-#comment{
+#comment, form{
 	display : flex;
 	align-items : center;
 }
@@ -57,12 +58,13 @@ form{
 	margin-right : 10px;
 }
 
-article {
+article, #comment {
 	display: flex;
 	margin-bottom : 40px;
 	margin-top : 40px;
 	border-bottom : 1px solid #DDD;
-	padding-bottom : 20px;
+	padding : 0.5em;
+	padding-bottom : 1em;
 }
 
 a{
@@ -85,16 +87,20 @@ p{
 	font-size :  1em;
 }
 
-input[type=text]{
+form input[type=text]{
 	border : 1px solid #DDD;
 	margin-right : 5px;
 }
 
-input[type=submit]{
+form input[type=submit]{
 	background : #DDD;
 	border : none;
 }
 
 div{
 	padding-top : 10px;
+}
+
+article a:hover{
+	text-shadow : 0 0 2px #ddd;
 }
