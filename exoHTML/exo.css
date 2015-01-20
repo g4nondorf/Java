@@ -1,0 +1,40 @@
+.div1{
+	background : #37BD25 ;
+	border : 20px outset #DF56E9 ;
+	border-radius : 10px ;
+	box-shadow : 5px 5px 2px #45D9f1;
+	font-size : 15px ;
+}
+
+#p{
+	background : #4DF59F ;
+	border : 5px hidden ;
+	border-radius : 10px ;
+	box-shadow : 15px 15px 10px #DF56E9 ;
+	font-weight : lighter ;
+	font-size : 20px ;
+	text-shadow : 3px 10px 5px black ;
+}
+
+#ol{
+	list-style : circle;
+	background : #FDF51F ;
+	border : 5px hidden ;
+	border-radius : 10px ;
+	box-shadow : 15px 15px 10px #F1A6E9 ;
+	width : 100px ;
+	height :  100px ;
+}
+
+#ul{
+	width : 100px;
+	height :  100px ;
+}
+
+tr:nth-child(odd){
+	background : linear-gradient(to right, red, yellow, blue, red) ;
+}
+
+tr:nth-child(even){
+	background : linear-gradient(to left, red, yellow, blue, red) ;
+}

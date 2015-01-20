@@ -1,0 +1,93 @@
+body{
+	background-color : rgb(192,222,237);
+	font-family : sans-serif;
+}
+
+main{
+	background-color : white;
+	border-radius : 15px;
+	width : 50%;
+	margin : auto;
+	margin-bottom : 100px;
+}
+
+footer{
+	background-color :rgb(142,193,218);
+	margin-top : 0px;
+	height : 75px;
+	position:fixed;
+	bottom:0;
+	left:0;
+	width : 100%;
+	text-align : center;
+}
+
+img{
+	min-width : 80px;
+	min-height : 90px;
+	max-height : 80px;
+	max-width : 90px;
+	border-radius : 40px;
+	margin-left : 20px;
+	margin-right : 20px;
+}
+
+#comment{
+	display : flex;
+	align-items : center;
+}
+
+h2{
+	font-weight : lighter ;
+	color : gray;
+	display : inline;
+	font-size : 0.75em;
+}
+
+article h1{
+	display : inline;
+}
+
+form{
+	flex: 1 1 auto;
+	display : flex;
+	height: 30px;
+	margin-right : 10px;
+}
+
+article {
+	display: flex;
+	margin-bottom : 40px;
+	margin-top : 40px;
+	border-bottom : 1px solid #DDD;
+	padding-bottom : 20px;
+}
+
+a{
+	text-decoration : none;
+	color : gray;
+}
+
+time{
+	text-decoration : none;
+	color : gray;
+	font-size : 15px;
+}
+
+form input:first-child {
+flex: 1;
+}
+
+p{
+	font-size :  1.5em;
+}
+
+input[type=text]{
+	border : 1px solid #DDD;
+	margin-right: 5px;
+}
+
+input[type=submit]{
+	background : #DDD;
+	border: none;
+}
