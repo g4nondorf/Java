@@ -4,6 +4,8 @@ body{
 }
 
 main{
+	padding-top : 10px;
+	box-shadow : 4px 4px 4px #AAA;
 	background-color : white;
 	border-radius : 15px;
 	width : 50%;
@@ -45,6 +47,7 @@ h2{
 }
 
 article h1{
+	font-size : 1em;
 	display : inline;
 }
 
@@ -64,6 +67,7 @@ article {
 }
 
 a{
+	font-size : 0.75em;
 	text-decoration : none;
 	color : gray;
 }
@@ -75,19 +79,19 @@ time{
 }
 
 form input:first-child {
-flex: 1;
+	flex: 1;
 }
 
 p{
-	font-size :  1.5em;
+	font-size :  1em;
 }
 
 input[type=text]{
 	border : 1px solid #DDD;
-	margin-right: 5px;
+	margin-right : 5px;
 }
 
 input[type=submit]{
 	background : #DDD;
-	border: none;
+	border : none;
 }
