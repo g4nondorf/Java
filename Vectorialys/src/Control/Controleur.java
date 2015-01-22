@@ -44,6 +44,7 @@ public class Controleur {
                 case(2):
                     Seg = Canvas.getSeg();
                     Vue_Affichage VA = new Vue_Affichage();
+                    VA.attribution(Seg);
                     VA.afficher();
                     break;
                 case(3):

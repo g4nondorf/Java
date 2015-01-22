@@ -15,13 +15,12 @@ public class Vue_Affichage {
     
     Segment Seg;
 
-    public Vue_Affichage(Segment Seg) {
+    public void attribution(Segment Seg) {
         this.Seg = Seg;
     }
     
     public void afficher(){
         //récupére les données du segment et en affiche les données
-        Segment Seg = Canvas.getSeg();
         Sommet s1 = Seg.getS1();
         Sommet s2 = Seg.getS2();
         double x1 = s1.getX();

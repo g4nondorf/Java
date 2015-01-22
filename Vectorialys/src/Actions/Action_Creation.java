@@ -22,7 +22,6 @@ public class Action_Creation {
         Sommet s1 = new Sommet(x1,y1);
         Sommet s2 = new Sommet(x2,y2);
         Segment Seg = new Segment(s1,s2);
-        Canvas.setSeg(Seg);
         return Seg;
     }
     
