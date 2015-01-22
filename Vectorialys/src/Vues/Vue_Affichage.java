@@ -11,6 +11,10 @@ package Vues;
  */
 import Model.*;
 
+/**
+ *
+ * @author Moi
+ */
 public class Vue_Affichage {
     
     Segment Seg;
