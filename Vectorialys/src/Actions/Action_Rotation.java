@@ -13,12 +13,13 @@ import Vues.Vue_Rotation;
  */
 public class Action_Rotation {
     
-    public void actionRotation(){
-        Vue_Rotation.saisir();//récupére la valeur de l'angle de rotation
-        double angle2 = Vue_Rotation.getAngle();//met la valeur dans la variable angle2
+    public Segment executerRotation(Vue_Rotation VR){
+        VR.saisir();//récupére la valeur de l'angle de rotation
+        double angle2 = VR.getAngle();//met la valeur dans la variable angle2
         Segment Seg = Canvas.getSeg();//récupére les données du segment
         Seg.rotation(angle2);//applique la rotation
-        System.out.println("Rotation effectué SIR!");
+        Canvas.setSeg(Seg);
+        return Seg;
     }
         
 }

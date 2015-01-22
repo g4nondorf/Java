@@ -13,13 +13,13 @@ import Model.*;
 
 public class Vue_Longueur {
     
-    private static double longueur;
+    private double longueur;
 
     public void setLongueur(double longueur) {//met a jour la variable longueur
         this.longueur = longueur;
     }
     
-    public static void afficher(){//affiche le longueur
+    public void afficher(){//affiche le longueur
         System.out.println("La longueur de votre segment est : " + longueur);
     }
     

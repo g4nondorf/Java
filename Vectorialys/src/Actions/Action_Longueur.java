@@ -14,13 +14,11 @@ import Vues.Vue_Longueur;
 
 public class Action_Longueur {
     
-    public void actionLongueur(){
+    public double executerLongueur(){
         double longr;
         Segment Seg = Canvas.getSeg();//récupére les données du segment
         longr = Seg.longueur();//calcul la longueur du segment
-        Vue_Longueur attribution = new Vue_Longueur();
-        attribution.setLongueur(longr);//attribut la loongueur calculée
-        Vue_Longueur.afficher();//affiche la valeur calculée
+        return longr;
     }
     
 }

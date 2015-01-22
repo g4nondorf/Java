@@ -14,18 +14,16 @@ import Vues.Vue_Creation;
 
 public class Action_Creation {
     
-    public void actionCreation(){
-        Vue_Creation.Saisie();
-        Vue_Creation valeur = new Vue_Creation();
-        double x1 = valeur.getX1();
-        double y1 = valeur.getY1();
-        double x2 = valeur.getX2();
-        double y2 = valeur.getY2();
+    public Segment executerCreation(Vue_Creation VC){
+        double x1 = VC.getX1();
+        double y1 = VC.getY1();
+        double x2 = VC.getX2();
+        double y2 = VC.getY2();
         Sommet s1 = new Sommet(x1,y1);
         Sommet s2 = new Sommet(x2,y2);
         Segment Seg = new Segment(s1,s2);
         Canvas.setSeg(Seg);
-        System.out.println("Votre segment a bien été créer :)");
+        return Seg;
     }
     
 }

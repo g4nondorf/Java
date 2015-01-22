@@ -14,15 +14,18 @@ import Vues.Vue_Translation;
  */
 public class Action_Translation {
     
-    public void actionTranslation(){
-        Vue_Translation.saisir();//demande la valeur de translation a l'utilisateur
-        double val_transl = Vue_Translation.getVal_trans();///met la valeur de translation dans la variable val_transl
+    public Segment executerTranslation(Vue_Translation VT){
+        VT.saisir();//demande la valeur de translation a l'utilisateur
+        double val_transl = VT.getVal_trans();///met la valeur de translation dans la variable val_transl
         Segment Seg = Canvas.getSeg();//récupére les données du segment
         Sommet s1 = Seg.getS1();
         Sommet s2 = Seg.getS2();
         s1.translater(val_transl);//applique la translation aux deux sommets
+        Seg.setS1(s1);
         s2.translater(val_transl);
-        System.out.println("Translation effectué SIR!");
+        Seg.setS2(s2);
+        Canvas.setSeg(Seg);
+        return Seg;
     }
     
 }
