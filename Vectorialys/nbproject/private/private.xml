@@ -6,7 +6,6 @@
             <file>file:/C:/Users/Moi/Documents/GitHub/java/Vectorialys/src/Vues/Vue_Longueur.java</file>
             <file>file:/C:/Users/Moi/Documents/GitHub/java/Vectorialys/src/Vues/Vue_Affichage.java</file>
             <file>file:/C:/Users/Moi/Documents/GitHub/java/Vectorialys/src/Model/Sommet.java</file>
-            <file>file:/C:/Users/Moi/Documents/GitHub/java/Vectorialys/src/Model/Canvas.java</file>
             <file>file:/C:/Users/Moi/Documents/GitHub/java/Vectorialys/src/Actions/Action_Creation.java</file>
             <file>file:/C:/Users/Moi/Documents/GitHub/java/Vectorialys/src/Vues/Vue_Rotation.java</file>
             <file>file:/C:/Users/Moi/Documents/GitHub/java/Vectorialys/src/Vues/Vue_Translation.java</file>
@@ -14,6 +13,7 @@
             <file>file:/C:/Users/Moi/Documents/GitHub/java/Vectorialys/src/Actions/Action_Rotation.java</file>
             <file>file:/C:/Users/Moi/Documents/GitHub/java/Vectorialys/src/Actions/Action_Longueur.java</file>
             <file>file:/C:/Users/Moi/Documents/GitHub/java/Vectorialys/src/Model/Segment.java</file>
+            <file>file:/C:/Users/Moi/Documents/GitHub/java/Vectorialys/src/Control/Controleur.java</file>
             <file>file:/C:/Users/Moi/Documents/GitHub/java/Vectorialys/src/Vues/Vue_Creation.java</file>
         </group>
     </open-files>
