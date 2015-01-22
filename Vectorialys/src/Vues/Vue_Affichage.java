@@ -28,8 +28,8 @@ public class Vue_Affichage {
         double x2 = s2.getX();
         double y2 = s2.getY();
         System.out.println("Le segment est formé par les points de coordonnées (x,y)"
-                + "\nx : (" + x1 + "," +y1 +
-                "\ny : (" + x2 + "," + y2);
+                + "\nx : (" + x1 + "," + y1 + ")" +
+                "\ny : (" + x2 + "," + y2 + ")");
     }
     
 }
