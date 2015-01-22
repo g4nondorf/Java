@@ -19,9 +19,10 @@ public class Controleur {
         
         int x=0;
         
+        System.out.println("Bienvenue dans ce super logiciel concernant les segments!!");
+                
         while(x!=6){
-            System.out.println("Bienvenue dans ce super logiciel concernant les segments!!" +
-                "Taper :" +
+            System.out.println("Taper 1, 2, 3, 4, 5 ou 6" +
                 "\n1 : Créer un segment" +
                 "\n2 : Afficher mon segment" +
                 "\n3 : Calculer la longueur de mon segment" +
@@ -48,18 +49,29 @@ public class Controleur {
                     VA.afficher();
                     break;
                 case(3):
-                    
+                    Action_Longueur AL = new Action_Longueur();
+                    double longr = AL.executerLongueur();
+                    Vue_Longueur VL = new Vue_Longueur();
+                    VL.setLongueur(longr);
+                    VL.afficher();
                     break;
                 case(4):
-                    
+                    Vue_Rotation VR = new Vue_Rotation();
+                    Action_Rotation AR = new Action_Rotation();
+                    Segment Seg2 = AR.executerRotation(VR);
+                    Canvas.setSeg(Seg2);
+                    System.out.println("Rotation effectuer connard!");
                     break;
                 case(5):
-                    
+                    Vue_Translation VT = new Vue_Translation();
+                    Action_Translation AT = new Action_Translation();
+                    Segment Seg1 = AT.executerTranslation(VT);
+                    Canvas.setSeg(Seg1);
+                    System.out.println("Translation effectuer connard!");
                     break;
                 case(6):
                     System.out.println("OK bon ben salut alors :)");
-                    break;
-                    
+                    break;  
             }
             
         }

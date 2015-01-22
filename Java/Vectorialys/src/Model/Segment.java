@@ -35,17 +35,25 @@ public class Segment {
         this.s2 = s2;
     }
     
-    public void rotation(double angle){//effectu une rotation du segment et enregistre les nouvelles données
+    public void rotation(double angle, double x, double y){//effectue une rotation du segment et enregistre les nouvelles données
         double x1 = s1.getX();
         double y1 = s1.getY();
         double x2 = s2.getX();
         double y2 = s2.getY();
         
-        x1 = x1*Math.cos(angle)-y2*Math.sin(angle);
-        y1 = y1*Math.cos(angle)-x2*Math.sin(angle);
+        double radians = Math.toRadians(angle);
+        
+        x1 = (x1-x)*Math.cos(radians)-(y1-y)*Math.sin(radians)+x;
+        y1 = (x1-x)*Math.sin(radians)+(y1-y)*Math.cos(radians)+y;
+        
+        x2 = (x2-x)*Math.cos(radians)-(y2-y)*Math.sin(radians)+x;
+        y2 = (x2-x)*Math.sin(radians)+(y2-y)*Math.cos(radians)+y;
         
         s1.setX(x1);
         s1.setY(y1);
+        
+        s2.setX(x2);
+        s2.setY(y2);
         
         Canvas.setSeg(this);//enregistrement des nouvelles données
     }

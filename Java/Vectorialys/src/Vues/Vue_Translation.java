@@ -13,14 +13,22 @@ import Model.*;
 
 public class Vue_Translation {
     
-    private double val_trans;
+    private double x1, y1;
 
-    public double getVal_trans() {
-        return val_trans;
+    public double getX1() {
+        return x1;
+    }
+
+    public double getY1() {
+        return y1;
     }
     
     public void saisir(){//récupére la valeur de translation
-        System.out.println("Quelle est la valeur de translation que vous souhaitez?");
-        val_trans = Clavier.lireDouble();
+        System.out.println("Quelle est la valeur de translation que vous souhaitez? "
+                + "\nPour cela nous considérons un vecteur donc il me faut un x : ");
+        x1 = Clavier.lireDouble();
+        System.out.println("et un y : ");
+        y1 = Clavier.lireDouble();
     }
+    
 }

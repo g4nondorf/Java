@@ -34,9 +34,9 @@ public class Sommet {
         this.y = y;
     }
     
-    public void translater(double val_trans){//atribu de nouvelles valeur a un point pour une translation
-        x = x + val_trans;
-        y = y + val_trans;
+    public void translater(double x1, double y1){//atribu de nouvelles valeur a un point pour une translation
+        x = x + x1;
+        y = y + y1;
     }
     
 }
