@@ -10,5 +10,7 @@ package Control;
  * @author Moi
  */
 public class Controleur {
-    
+    public void main(String[] args){
+        
+    }
 }
