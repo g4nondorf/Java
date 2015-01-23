@@ -9,27 +9,24 @@ package Vues;
  *
  * @author Moi
  */
+import Control.SegmentException;
 import Model.*;
 
 public class Vue_Affichage {
     
-    Segment Seg;
-
-    public void attribution(Segment Seg) {
-        this.Seg = Seg;
-    }
-    
-    public void afficher(){
+    public void afficher(Segment Seg) throws SegmentException{
         //récupére les données du segment et en affiche les données
+        if(Seg == null){
+            throw new SegmentException("Aucun segment n'a été créé ! ");
+        }
         Sommet s1 = Seg.getS1();
         Sommet s2 = Seg.getS2();
         double x1 = s1.getX();
         double y1 = s1.getY();
         double x2 = s2.getX();
         double y2 = s2.getY();
-        System.out.println("Le segment est formé par les points de coordonnées (x,y)"
-                + "\nx : (" + x1 + "," + y1 + ")" +
-                "\ny : (" + x2 + "," + y2 + ")");
+        System.out.println("x : (" + x1 + "," + y1 + ") | " +
+                "y : (" + x2 + "," + y2 + ")");
     }
     
 }

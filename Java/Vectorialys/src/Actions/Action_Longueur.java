@@ -11,12 +11,16 @@ package Actions;
  */
 import Model.*;
 import Vues.Vue_Longueur;
+import Control.SegmentException;
 
 public class Action_Longueur {
     
-    public double executerLongueur(){
+    public double executerLongueur()throws SegmentException{
         double longr;
         Segment Seg = Canvas.getSeg();//récupére les données du segment
+        if(Seg == null){
+            throw new SegmentException("Aucun segment n'a été créé ! ");
+        }
         longr = Seg.longueur();//calcul la longueur du segment
         return longr;
     }

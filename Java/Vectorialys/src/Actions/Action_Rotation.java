@@ -5,6 +5,7 @@
  */
 package Actions;
 
+import Control.SegmentException;
 import Model.*;
 import Vues.Vue_Rotation;
 /**
@@ -13,12 +14,15 @@ import Vues.Vue_Rotation;
  */
 public class Action_Rotation {
     
-    public Segment executerRotation(Vue_Rotation VR){
+    public Segment executerRotation(Vue_Rotation VR) throws SegmentException{
         VR.saisir();//récupére la valeur de l'angle de rotation
         double angle2 = VR.getAngle();//met la valeur dans la variable angle2
         double x1 = VR.getX1();
         double y1 = VR.getY1();
         Segment Seg = Canvas.getSeg();//récupére les données du segment
+        if(Seg == null){
+            throw new SegmentException("Aucun segment n'a été créé ! ");
+        }
         Seg.rotation(angle2, x1, y1);//applique la rotation
         Canvas.setSeg(Seg);
         return Seg;

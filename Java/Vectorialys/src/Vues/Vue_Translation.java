@@ -24,10 +24,10 @@ public class Vue_Translation {
     }
     
     public void saisir(){//récupére la valeur de translation
-        System.out.println("Quelle est la valeur de translation que vous souhaitez? "
+        System.out.print("Quelle est la valeur de translation que vous souhaitez? "
                 + "\nPour cela nous considérons un vecteur donc il me faut un x : ");
         x1 = Clavier.lireDouble();
-        System.out.println("et un y : ");
+        System.out.print("et un y : ");
         y1 = Clavier.lireDouble();
     }
     

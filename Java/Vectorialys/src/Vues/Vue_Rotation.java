@@ -30,10 +30,10 @@ public class Vue_Rotation {
     public void saisir(){//récupére l'angle de rotation
         System.out.println("Quelle est la valeur de l'angle pour la rotation?");
         angle = Clavier.lireDouble();
-        System.out.println("A partir de quel point pour la rotation?" +
+        System.out.print("A partir de quel point pour la rotation?" +
                 "\nx ?");
         x1 = Clavier.lireDouble();
-        System.out.println("y ?");
+        System.out.print("y ?");
         y1 = Clavier.lireDouble();
     }
     

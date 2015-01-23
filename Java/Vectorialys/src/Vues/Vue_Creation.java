@@ -14,13 +14,13 @@ public class Vue_Creation {
     private double x1, y1, x2, y2;
     
     public void Saisie(){
-        System.out.println("Valeur de x1?");
+        System.out.print("x1 : ");
         x1 = Clavier.lireDouble();
-        System.out.println("Valeur de y1?");
+        System.out.print("y1 : ");
         y1 = Clavier.lireDouble();
-        System.out.println("Valeur de x2?");
+        System.out.print("x2 : ");
         x2 = Clavier.lireDouble();
-        System.out.println("Valeur de y2?");
+        System.out.print("y2 : ");
         y2 = Clavier.lireDouble();
     }
 
