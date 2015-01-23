@@ -39,8 +39,4 @@ public class Vue_Creation {
         return y2;
     }
     
-    /*public static void main(String[] args){
-        new Vue_Creation().Saisie();
-    }//petit test de la vue faire shift+f6 pour n'executer que cette classe*/
-    
 }
