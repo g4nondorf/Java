@@ -25,6 +25,7 @@ public class Action_Translation {
         Seg.setS1(s1);
         s2.translater(val_transl, val_trans2);
         Seg.setS2(s2);
+        Canvas.setSeg(Seg);
         return Seg;
     }
     

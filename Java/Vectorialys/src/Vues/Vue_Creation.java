@@ -10,6 +10,7 @@ package Vues;
  * @author Moi
  */
 public class Vue_Creation {
+    
     private double x1, y1, x2, y2;
     
     public void Saisie(){

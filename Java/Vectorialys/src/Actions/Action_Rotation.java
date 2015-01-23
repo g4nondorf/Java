@@ -20,6 +20,7 @@ public class Action_Rotation {
         double y1 = VR.getY1();
         Segment Seg = Canvas.getSeg();//récupére les données du segment
         Seg.rotation(angle2, x1, y1);//applique la rotation
+        Canvas.setSeg(Seg);
         return Seg;
     }
         
