@@ -12,12 +12,15 @@ public class Controle {
     
     public static void main(String[] args){
         
-        Equation equa = new Equation();
-        equa.créerEquation(equa);
-        float a1 = equa.getA();
-        float b1 = equa.getB();
-        float c1 = equa.getC();
-        equa.resoudreEquation(a1, b1, c1);
+        System.out.println("Rentrer les valeur a, b, c tel que ax²+bx+c = 0");
+        System.out.print("a : ");
+        float a = Clavier.lireFloat();
+        System.out.print("b : ");
+        float b = Clavier.lireFloat();
+        System.out.print("c : ");
+        float c = Clavier.lireFloat();
+        Equation equa = new Equation(a, b, c);
+        equa.resoudreEquation();
         
     }
     

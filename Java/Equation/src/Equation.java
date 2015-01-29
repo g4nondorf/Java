@@ -9,6 +9,12 @@
  * @author Moi
  */
 public class Equation {
+
+    public Equation(float a, float b, float c) {
+        this.a = a;
+        this.b = b;
+        this.c = c;
+    }
     
     private float a;
     private float b;
@@ -38,35 +44,25 @@ public class Equation {
         this.c = c;
     }
     
-    public void créerEquation(Equation equ){
-        System.out.println("Rentrer les valeur a, b, c tel que ax²+bx+c = 0");
-        System.out.print("a : ");
-        equ.setA(Clavier.lireFloat());
-        System.out.print("b : ");
-        equ.setB(Clavier.lireFloat());
-        System.out.print("c : ");
-        equ.setC(Clavier.lireFloat());
-    }
-    
-    public void resoudreEquation(float a1, float b1, float c1){
+    public void resoudreEquation(){
         
-        float delta = (b1 * b1)-(4 * a1 * c1);
+        float delta = (b * b)-(4 * a * c);
         
         if(delta > 0)
         {
-            float x1 = ((-b1 + (float)Math.sqrt(delta)) / 2.0F*a1);
-            float x2 = ((-b1 - (float)Math.sqrt(delta)) / 2.0F*a1);
+            float x1 = ((-b + (float)Math.sqrt(delta)) / 2.0F*a);
+            float x2 = ((-b - (float)Math.sqrt(delta)) / 2.0F*a);
             System.out.println("Il y a deux solution a l'equation \nx1 = " + x2 + " et x2 = " + x2);
         }else if(delta == 0)
         {
-            float x = (-b1/(2*a1));
+            float x = (-b/(2*a));
             System.out.println("Il y a une seule solution x = " + x);
         }else if(delta < 0)
         {
             delta = -delta;
-            a1 = 2*a1;
+            a = 2*a;
             System.out.println("Il y a deux solution IMAGINAIRE a l'equation \n"
-                    + "x1 = (-" + b1 + "+ i*\u221A(" + delta + ")/"+ a1 + " et x2 = (-" + b1 + "- i*'\u221A'(" + delta + ")/"+ a1);
+                    + "x1 = (-" + b + "+ i*\u221A(" + delta + ")/"+ a + " et x2 = (-" + b + "- i*\u221A(" + delta + ")/"+ a);
         }else
         {
             System.out.println("Il y a un probléme");
