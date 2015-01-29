@@ -41,14 +41,11 @@ public class Equation {
     public void créerEquation(Equation equ){
         System.out.println("Rentrer les valeur a, b, c tel que ax²+bx+c = 0");
         System.out.print("a : ");
-        float a1 = Clavier.lireFloat();
-        equ.setA(a1);
+        equ.setA(Clavier.lireFloat());
         System.out.print("b : ");
-        float b1 = Clavier.lireFloat();
-        equ.setB(b1);
+        equ.setB(Clavier.lireFloat());
         System.out.print("c : ");
-        float c1 = Clavier.lireFloat();
-        equ.setC(c1);
+        equ.setC(Clavier.lireFloat());
     }
     
     public void resoudreEquation(float a1, float b1, float c1){
