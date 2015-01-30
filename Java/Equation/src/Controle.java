@@ -12,14 +12,8 @@ public class Controle {
     
     public static void main(String[] args){
         
-        System.out.println("Rentrer les valeur a, b, c tel que ax²+bx+c = 0");
-        System.out.print("a : ");
-        float a = Clavier.lireFloat();
-        System.out.print("b : ");
-        float b = Clavier.lireFloat();
-        System.out.print("c : ");
-        float c = Clavier.lireFloat();
-        Equation equa = new Equation(a, b, c);
+        VueEquation vue = new VueEquation();
+        Equation equa = vue.creerEquation();
         equa.resoudreEquation();
         
     }
