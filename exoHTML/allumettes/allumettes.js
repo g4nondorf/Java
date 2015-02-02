@@ -11,10 +11,10 @@ function tour(){
 	if(entier<=0 || entier>3 || entier>nbAlu){
 		alert("Valeur hors liste");
 		return;
-	}else{
-		nbAlu -= entier;//met a jour la variables allumettes totale
-		liste.innerHTML += "<li>Vous avez pris " + entier + " allumettes.</li>";//complete le suivi des coups
 	}
+	
+	nbAlu -= entier;//met a jour la variables allumettes totale
+	liste.innerHTML += "<li>Vous avez pris " + entier + " allumettes.</li>";//complete le suivi des coups
 	
 	if(nbAlu === 0){//verif PERDU
 		tag.innerHTML = "";
