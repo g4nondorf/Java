@@ -39,3 +39,13 @@ function tour(){
 		tag.innerHTML +=  "<li>-alualu-</li>";//création de la nouvelle balise <ul></ul>
 	}
 }
+
+function reinitialiser(){
+	nbAlu = 13;
+	
+	for(i =0; i<nbAlu; i++){
+		tag.innerHTML +=  "<li>-alualu-</li>";//création de la nouvelle balise <ul></ul>
+	}
+	
+	liste.innerHTML = "";
+}
