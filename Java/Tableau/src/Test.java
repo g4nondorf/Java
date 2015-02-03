@@ -21,6 +21,8 @@ public class Test {
         int place = Clavier.lireInt();
         tab.setElement(place, valeur);
         System.out.println(tab.getElement(place) + " a bien été ajouté");*/
+        System.out.println("Il y a " + tab.getNbSousMoy() + " elements sous la moyenne.");
+        System.out.println("Il y a " + tab.getNbSurMoy() + " elements sous la moyenne.");
         tab.trierTab();
         System.out.println(tab);
     }

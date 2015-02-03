@@ -108,5 +108,27 @@ public class Tableau {
             }
         }
         return chaine;
-    } 
+    }
+    
+    public int getNbSousMoy(){
+        int valeur = 0;
+        int moy = this.getMoyenne();
+        for(int i = 0; i < tab.length; i++){
+            if(tab[i] < moy){
+                valeur++;
+            }
+        }
+        return valeur;
+    }
+    
+    public int getNbSurMoy(){
+        int valeur = 0;
+        int moy = this.getMoyenne();
+        for(int i = 0; i < tab.length; i++){
+            if(tab[i] > moy){
+                valeur++;
+            }
+        }
+        return valeur;
+    }
 }
