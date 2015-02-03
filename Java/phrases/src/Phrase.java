@@ -33,39 +33,38 @@ public class Phrase {
     }
     
     public boolean estPalindrome(){
-        String inverse = inverserLettres();
-        boolean oui;
-        int taille = chaine.length();
+        String inverse = this.inverserLettres();
         String chaine1 = chaine.replaceAll(" ", "");
         String newInverse = inverse.replaceAll(" ", "");
+        return chaine1.equalsIgnoreCase(newInverse);
+    } 
+    
+    public String phraseRetournee(){
+        String newChaine = "";
+        int d = chaine.length();
         
-        if(newInverse.equals(chaine1)){
-            oui = true;
-            return oui;
-        }else if(!newInverse.equals(chaine1)){
-            oui = false;
-            return oui;
-        }else{
-            System.out.println("Y'a un probléme");
-            oui = false;
-            return oui;
+        for(int i = chaine.length()-1; i>=0; i--){
+            if (chaine.charAt(i) == ' '){
+                newChaine += chaine.substring(i+1, d) + " ";
+                d = i;
+            }else if(i == 0){
+                newChaine += chaine.substring(i, d);
+            }
         }
+        
+        return newChaine;
     }
     
-    public static void main(String[] args){
+    public int getNbMot(){
+        String sTemp = chaine.replaceAll("  ", "").trim();
+        int result = 0;
         
-        System.out.print("Faites un mot ou phrase pour voir si c'est un palyndrome\nAllez y : ");
-        String maPhrase = Clavier.lireString();
-        Phrase objet = new Phrase(maPhrase);
-        boolean palyndrome = objet.estPalindrome();
-        
-        if(palyndrome){
-            System.out.println("C'en est un");
-        }else if(!palyndrome){
-            System.out.println("C'en est pas un");
-        }else{
-            System.out.println("Y'a un probléme");
+        if(sTemp.length()!=0) result++;
+        while(sTemp.indexOf(' ')!=-1){
+            result++;
+            sTemp = sTemp.substring(sTemp.indexOf(' ')).trim();
         }
-            
+        return result;
     }
+    
 }
