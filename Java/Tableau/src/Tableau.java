@@ -70,15 +70,14 @@ public class Tableau {
         return valeur;
     }
     
-    public int getMoyenne(){
-        int valeur = 0;
+    public double getMoyenne(){
+        double valeur = 0;
         
         for(int i = 0; i < getTaille(); i++){
-            valeur += tab[i];
+            valeur += (double)tab[i];
         }
         
-        valeur = valeur/getTaille();
-        return valeur;
+        return valeur/(double)getTaille();
     }
     
     public void trierTab(){
@@ -112,7 +111,7 @@ public class Tableau {
     
     public int getNbSousMoy(){
         int valeur = 0;
-        int moy = this.getMoyenne();
+        double moy = this.getMoyenne();
         for(int i = 0; i < tab.length; i++){
             if(tab[i] < moy){
                 valeur++;
@@ -123,7 +122,7 @@ public class Tableau {
     
     public int getNbSurMoy(){
         int valeur = 0;
-        int moy = this.getMoyenne();
+        double moy = this.getMoyenne();
         for(int i = 0; i < tab.length; i++){
             if(tab[i] > moy){
                 valeur++;
