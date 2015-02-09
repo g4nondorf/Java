@@ -1,0 +1,31 @@
+table{
+	margin: auto;
+	margin-top: 100px;
+}
+
+table, td{
+	border: 1px solid #000;
+	border-collapse: collapse;
+}
+
+td{
+	padding: 2em;
+	margin: 0;
+}
+
+.full{
+	background-color: #000;
+}
+
+.controle{
+	display: flex;
+	justify-content: center;
+}
+
+.controle span{
+	font-size: 2em;
+	margin: 20px;
+	padding: 20px;
+	background-color: #aaa;
+	cursor: pointer;
+}
