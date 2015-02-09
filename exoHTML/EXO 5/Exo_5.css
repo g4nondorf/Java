@@ -1,0 +1,44 @@
+body{
+	background-image:url(maxresdefault.jpg);
+	background-size: 100%;
+	font-family: monospace;
+	font-size: 1.5em;
+	
+}
+main{
+	width: 50%;
+	max-width: 800px;
+	margin: auto;
+	background: #FFF;
+	padding: 0.5em;
+}
+.ligne{
+	display: flex;
+	justify-content: center;
+}
+ul{
+	list-style: none;
+}
+#histo{
+	background: #f2e7b3;
+	padding: 0.5em;
+}
+#pile, #ecran{
+	text-align: right;
+	background: black;
+	color: white;
+}
+#pile{
+	margin-bottom: 0;
+}
+#ecran{
+	margin-top: 0;
+}
+.action, .operateur, .nombre{
+	border: solid 1px black;
+	background: #ddd;
+	padding: 1.2em;
+	margin: 0.2em;
+	box-shadow: 2px 2px 0px #000;
+	cursor: pointer;
+}
