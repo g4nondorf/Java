@@ -6,12 +6,12 @@ function create_matrix(nb_lines, nb_columns){
 	
 	for(var i=0; i<nb_lines; i++){
 		var columns = [];
+		
 		for(var j=0; j<nb_columns; j++){
 			columns[j] = 0;
 		}
 		result[i] = columns;
 	}
-	
 	return result;
 }
 
@@ -79,8 +79,8 @@ function neighbours_count(t, x, y){//Compte tous les voisins de la cellules (x,y
 	var max_x = Math.min(t.length-1, x+1);
 	var min_y = Math.max(0, y-1);
 	var max_y = Math.min(t[0].length-1, y+1);
-	
 	var result = 0;
+	
 	for(var i=min_x; i<=max_x; i++){
 		for(var j=min_y; j<=max_y; j++){
 			result += t[i][j];

@@ -2,6 +2,18 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/Moi/Documents/GitHub/Java/Java/Vectorialys/src/Actions/Action_Longueur.java</file>
+            <file>file:/C:/Users/Moi/Documents/GitHub/Java/Java/Vectorialys/src/Model/Canvas.java</file>
+            <file>file:/C:/Users/Moi/Documents/GitHub/Java/Java/Vectorialys/src/Control/Controleur.java</file>
+            <file>file:/C:/Users/Moi/Documents/GitHub/Java/Java/Vectorialys/src/Actions/Action_Creation.java</file>
+            <file>file:/C:/Users/Moi/Documents/GitHub/Java/Java/Vectorialys/src/Control/SegmentException.java</file>
+            <file>file:/C:/Users/Moi/Documents/GitHub/Java/Java/Vectorialys/src/Vues/Vue_Affichage.java</file>
+            <file>file:/C:/Users/Moi/Documents/GitHub/Java/Java/Vectorialys/src/Model/Sommet.java</file>
+            <file>file:/C:/Users/Moi/Documents/GitHub/Java/Java/Vectorialys/src/Vues/Vue_Longueur.java</file>
+            <file>file:/C:/Users/Moi/Documents/GitHub/Java/Java/Vectorialys/src/Vues/Vue_Creation.java</file>
+            <file>file:/C:/Users/Moi/Documents/GitHub/Java/Java/Vectorialys/src/Actions/Action_Rotation.java</file>
+            <file>file:/C:/Users/Moi/Documents/GitHub/Java/Java/Vectorialys/src/Model/Segment.java</file>
+        </group>
     </open-files>
 </project-private>
