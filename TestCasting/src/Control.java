@@ -44,12 +44,15 @@ public class Control {
             }
         }
         
+        System.out.println("\nMéthode equals");
         Fraction a = new Fraction(1,2);
         Fraction b = new Fraction(1,2);
-        if(a.equals(b)){
-            System.out.println("Egaux");
-        }else{
-            System.out.println("Différents");
-        }
+        Fraction c = new Fraction(2,4);
+        boolean b1 = a == b;
+        boolean b2 = a.equals(b);
+        boolean b3 = a.equals(c);
+        System.out.println("b1 : " + b1);
+        System.out.println("b2 : " + b2);
+        System.out.println("b3 : " + b3);
     }
 }
