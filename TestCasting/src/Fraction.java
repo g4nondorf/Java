@@ -30,6 +30,11 @@ public class Fraction {
     }
     
     public boolean equals(Object obj){
-        return ((this.u*((Fraction)obj).v) == (((Fraction)obj).u*this.v));
+        Fraction f = (Fraction)obj;
+        if(obj instanceof Fraction){
+            return ((this.u*f.v) == (f.u*this.v));
+        }else{
+            return false;
+        }
     }
 }
