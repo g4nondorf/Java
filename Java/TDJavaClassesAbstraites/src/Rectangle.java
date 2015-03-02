@@ -28,7 +28,7 @@ public class Rectangle extends FigureGéométrique{
     public boolean equals(Object obj) {
         boolean b = false;
         if(obj instanceof Rectangle){
-            if(((Rectangle)obj).longueur == this.longueur && ((Rectangle)obj).largeur == this.largeur && this.centre.equals(((Cercle) obj).centre)){
+            if(((Rectangle)obj).longueur == this.longueur && ((Rectangle)obj).largeur == this.largeur && this.centre.equals(((Rectangle) obj).centre)){
                 b = true;
             }
         }

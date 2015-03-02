@@ -16,6 +16,8 @@ public class TestFormes {
         s.add(new Carré(2));
         s.add(new Carré(2, new Point(4, 1)));
         System.out.println(s);
-        System.out.println(s.getFormes()[3].equals(s.getFormes()[4]));
+        System.out.println((s.getFormes()[2]).equals(s.getFormes()[3]));
+        s.getFormes()[2].translater(4, 1);
+        System.out.println((s.getFormes()[2]).equals(s.getFormes()[3]));
     }
 }

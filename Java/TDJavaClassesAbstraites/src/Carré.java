@@ -27,11 +27,18 @@ public class Carré extends FigureGéométrique{
     public boolean equals(Object obj) {
         boolean b = false;
         if (obj instanceof Carré) {
-            if (((Carré) obj).cote == this.cote && this.centre.equals(((Cercle) obj).centre)) {
+            if ((((Carré)obj).cote == this.cote) && (this.centre.equals(((Carré)obj).centre))) {
                 b = true;
             }
         }
         return b;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 23 * hash + (int) (Double.doubleToLongBits(this.cote) ^ (Double.doubleToLongBits(this.cote) >>> 32));
+        return hash;
     }
 
     @Override
