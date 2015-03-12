@@ -3,7 +3,7 @@ package Modeles;
 import Interfaces.Coloriable;
 
 
-public class Point implements Coloriable{
+public class Point implements Coloriable, Cloneable{
 
     private double x, y;
     private String couleur = "Incolore";
@@ -46,5 +46,9 @@ public class Point implements Coloriable{
     @Override
     public void setCouleur(String c) {
         this.couleur = c;
+    }
+    
+    public Object clone(){
+        return new Point(this.getX(),this.getY());
     }
 }

@@ -7,12 +7,12 @@ import Interfaces.Perimetrable;
 
 public class Polygone extends Forme implements Perimetrable, Coloriable {
     
-    private Point[] sommets = new Point[100];
-    private int nbSommets = 0;
+    protected final Point[] sommets = new Point[100];
+    protected int nbSommets = 0;
     private String couleur = "Incolore";
     
     public void addSommet(Point s) {
-        sommets[nbSommets] = s;
+        sommets[nbSommets] = (Point)s.clone();
         nbSommets++;
     }
     

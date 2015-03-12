@@ -2,6 +2,7 @@ package Modeles;
 
 import ClassesAbstraites.Forme;
 import Interfaces.Perimetrable;
+import Interfaces.Surfacable;
 
 
 public class Structure {
@@ -33,7 +34,17 @@ public class Structure {
             if (formes[i] instanceof Perimetrable) {
                 System.out.println("Forme n°" + (i + 1) + ": " + ((Perimetrable) formes[i]).getPerimetre());
             } else {
-                System.out.println("Pas de périmètre à définir !!");
+                System.out.println("Forme n°" + (i+1) + ": Pas de périmètre à définir !!");
+            }
+        }
+    }
+    
+    public void afficherSurface(){
+        for(int i = 0; i < nbFormes; i++){
+            if (formes[i] instanceof Surfacable) {
+                System.out.println("Forme n°" + (i + 1) + ": " + ((Surfacable) formes[i]).getSurface());
+            } else {
+                System.out.println("Forme n°" + (i+1) + ": Pas de surface à définir !!");
             }
         }
     }

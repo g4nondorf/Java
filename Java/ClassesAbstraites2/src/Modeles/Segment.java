@@ -10,8 +10,8 @@ public class Segment implements Coloriable{
     private String couleur = "Incolore";
     
     public Segment(Point p1, Point p2) {
-        this.p1 = p1;
-        this.p2 = p2;
+        this.p1 = (Point)p1.clone();
+        this.p2 = (Point)p2.clone();
     }
     
     public double getLongueur() {
@@ -31,5 +31,9 @@ public class Segment implements Coloriable{
     @Override
     public void setCouleur(String c) {
         this.couleur = c;
+    }
+    
+    public Object clone(){
+        return new Segment(this.p1,this.p2);
     }
 }

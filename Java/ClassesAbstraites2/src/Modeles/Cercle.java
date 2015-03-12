@@ -3,10 +3,10 @@ package Modeles;
 import ClassesAbstraites.Forme;
 import Interfaces.Coloriable;
 import Interfaces.Perimetrable;
-import Interfaces.Surfaçable;
+import Interfaces.Surfacable;
 
 
-public class Cercle extends Forme implements Perimetrable, Coloriable, Surfaçable {
+public class Cercle extends Forme implements Perimetrable, Coloriable, Surfacable {
 
     private double rayon;
     private Point centre;
@@ -56,5 +56,19 @@ public class Cercle extends Forme implements Perimetrable, Coloriable, Surfaçab
     @Override
     public void setCouleur(String c) {
         this.couleur = c;
+    }
+    
+    public int compareTo(Object o){
+        int resu = 100;
+        if(o instanceof Surfacable){
+            if(this.getSurface() < ((Surfacable)o).getSurface()){
+                resu = -1;
+            }else if(this.getSurface() > ((Surfacable)o).getSurface()){
+                resu = 1;
+            }else{
+                resu = 0;
+            }
+        }
+        return resu;
     }
 }

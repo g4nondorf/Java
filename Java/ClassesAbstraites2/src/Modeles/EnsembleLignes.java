@@ -9,7 +9,7 @@ public class EnsembleLignes extends Forme {
     private int nbLignes = 0;
 
     public void addLigne(Segment s) {
-        tabLignes[nbLignes] = s;
+        tabLignes[nbLignes] = (Segment)s.clone();
         nbLignes++;
     }
 
