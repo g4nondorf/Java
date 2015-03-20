@@ -32,22 +32,45 @@ public class Liste {
     }
     
     public void insererSucc(Iterateur i,Object o){
-        
+        if(i != null){
+            Element courant = i.courant();
+            courant.chainer(new Element(o, courant.getSuivant()));
+        }
     }
     
     public void supprimerSucc(Iterateur i){
-        
+        if(!i.dernier()){
+            (i.courant()).chainer(((i.courant()).getSuivant()).getSuivant());
+        }
     }
     
     public void supprimerQueue(){
-        
+        if(!estVide()){
+            Iterateur i = this.iterateur();
+            if(i.dernier()){
+                tete = null;
+            }else{
+                while(((i.courant()).getSuivant()).getSuivant()!= null){
+                    i.avancer();
+                }
+            }
+            (i.courant()).chainer(null);
+        }
     }
     
     public Iterateur getPred(Object o){
-        
+        Iterateur i = this.iterateur();
+        while(i.courant().getSuivant().getObj() != o){
+            i.avancer();
+        }
+        return i;
     }
     
     public Iterateur iterateur(){
-        
+        return new Iterateur(tete);
+    }
+    
+    public void supprimer(Object o){
+        supprimerSucc(getPred(o));
     }
 }
