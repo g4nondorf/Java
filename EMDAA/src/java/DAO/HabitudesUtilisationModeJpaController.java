@@ -8,6 +8,7 @@ package DAO;
 import DAO.exceptions.IllegalOrphanException;
 import DAO.exceptions.NonexistentEntityException;
 import DAO.exceptions.PreexistingEntityException;
+import DAO.exceptions.RollbackFailureException;
 import Entites.HabitudesUtilisationMode;
 import Entites.HabitudesUtilisationModePK;
 import java.io.Serializable;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.transaction.UserTransaction;
 
 /**
  *
@@ -28,16 +30,18 @@ import javax.persistence.EntityManagerFactory;
  */
 public class HabitudesUtilisationModeJpaController implements Serializable {
 
-    public HabitudesUtilisationModeJpaController(EntityManagerFactory emf) {
+    public HabitudesUtilisationModeJpaController(UserTransaction utx, EntityManagerFactory emf) {
+        this.utx = utx;
         this.emf = emf;
     }
+    private UserTransaction utx = null;
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
-    public void create(HabitudesUtilisationMode habitudesUtilisationMode) throws IllegalOrphanException, PreexistingEntityException, Exception {
+    public void create(HabitudesUtilisationMode habitudesUtilisationMode) throws IllegalOrphanException, PreexistingEntityException, RollbackFailureException, Exception {
         if (habitudesUtilisationMode.getHabitudesUtilisationModePK() == null) {
             habitudesUtilisationMode.setHabitudesUtilisationModePK(new HabitudesUtilisationModePK());
         }
@@ -59,8 +63,8 @@ public class HabitudesUtilisationModeJpaController implements Serializable {
         }
         EntityManager em = null;
         try {
+            utx.begin();
             em = getEntityManager();
-            em.getTransaction().begin();
             Sessions numerosession = habitudesUtilisationMode.getNumerosession();
             if (numerosession != null) {
                 numerosession = em.getReference(numerosession.getClass(), numerosession.getNumerosession());
@@ -80,8 +84,13 @@ public class HabitudesUtilisationModeJpaController implements Serializable {
                 panel.setHabitudesUtilisationMode(habitudesUtilisationMode);
                 panel = em.merge(panel);
             }
-            em.getTransaction().commit();
+            utx.commit();
         } catch (Exception ex) {
+            try {
+                utx.rollback();
+            } catch (Exception re) {
+                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
+            }
             if (findHabitudesUtilisationMode(habitudesUtilisationMode.getHabitudesUtilisationModePK()) != null) {
                 throw new PreexistingEntityException("HabitudesUtilisationMode " + habitudesUtilisationMode + " already exists.", ex);
             }
@@ -93,13 +102,13 @@ public class HabitudesUtilisationModeJpaController implements Serializable {
         }
     }
 
-    public void edit(HabitudesUtilisationMode habitudesUtilisationMode) throws IllegalOrphanException, NonexistentEntityException, Exception {
+    public void edit(HabitudesUtilisationMode habitudesUtilisationMode) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         habitudesUtilisationMode.getHabitudesUtilisationModePK().setNumeromenage(habitudesUtilisationMode.getPanel().getPanelPK().getNumeromenage());
         habitudesUtilisationMode.getHabitudesUtilisationModePK().setNumeropersonne(habitudesUtilisationMode.getPanel().getPanelPK().getNumeropersonne());
         EntityManager em = null;
         try {
+            utx.begin();
             em = getEntityManager();
-            em.getTransaction().begin();
             HabitudesUtilisationMode persistentHabitudesUtilisationMode = em.find(HabitudesUtilisationMode.class, habitudesUtilisationMode.getHabitudesUtilisationModePK());
             Sessions numerosessionOld = persistentHabitudesUtilisationMode.getNumerosession();
             Sessions numerosessionNew = habitudesUtilisationMode.getNumerosession();
@@ -143,8 +152,13 @@ public class HabitudesUtilisationModeJpaController implements Serializable {
                 panelNew.setHabitudesUtilisationMode(habitudesUtilisationMode);
                 panelNew = em.merge(panelNew);
             }
-            em.getTransaction().commit();
+            utx.commit();
         } catch (Exception ex) {
+            try {
+                utx.rollback();
+            } catch (Exception re) {
+                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
+            }
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
                 HabitudesUtilisationModePK id = habitudesUtilisationMode.getHabitudesUtilisationModePK();
@@ -160,11 +174,11 @@ public class HabitudesUtilisationModeJpaController implements Serializable {
         }
     }
 
-    public void destroy(HabitudesUtilisationModePK id) throws NonexistentEntityException {
+    public void destroy(HabitudesUtilisationModePK id) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
+            utx.begin();
             em = getEntityManager();
-            em.getTransaction().begin();
             HabitudesUtilisationMode habitudesUtilisationMode;
             try {
                 habitudesUtilisationMode = em.getReference(HabitudesUtilisationMode.class, id);
@@ -183,7 +197,14 @@ public class HabitudesUtilisationModeJpaController implements Serializable {
                 panel = em.merge(panel);
             }
             em.remove(habitudesUtilisationMode);
-            em.getTransaction().commit();
+            utx.commit();
+        } catch (Exception ex) {
+            try {
+                utx.rollback();
+            } catch (Exception re) {
+                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
+            }
+            throw ex;
         } finally {
             if (em != null) {
                 em.close();

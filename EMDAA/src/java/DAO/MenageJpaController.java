@@ -8,6 +8,7 @@ package DAO;
 import DAO.exceptions.IllegalOrphanException;
 import DAO.exceptions.NonexistentEntityException;
 import DAO.exceptions.PreexistingEntityException;
+import DAO.exceptions.RollbackFailureException;
 import Entites.Menage;
 import java.io.Serializable;
 import javax.persistence.Query;
@@ -24,16 +25,19 @@ import Entites.Moto;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.transaction.UserTransaction;
 
 /**
  *
  * @author Moi
  */
-public class MenageJpaController implements Serializable, DAOMenage{
+public class MenageJpaController implements Serializable, DAOMenage {
 
-    public MenageJpaController(EntityManagerFactory emf) {
+    public MenageJpaController(UserTransaction utx, EntityManagerFactory emf) {
+        this.utx = utx;
         this.emf = emf;
     }
+    private UserTransaction utx = null;
     private EntityManagerFactory emf = null;
 
     @Override
@@ -42,7 +46,7 @@ public class MenageJpaController implements Serializable, DAOMenage{
     }
 
     @Override
-    public void create(Menage menage) throws PreexistingEntityException, Exception {
+    public void create(Menage menage) throws PreexistingEntityException, RollbackFailureException, Exception {
         if (menage.getVoitureTourismeCollection() == null) {
             menage.setVoitureTourismeCollection(new ArrayList<VoitureTourisme>());
         }
@@ -54,8 +58,8 @@ public class MenageJpaController implements Serializable, DAOMenage{
         }
         EntityManager em = null;
         try {
+            utx.begin();
             em = getEntityManager();
-            em.getTransaction().begin();
             Sessions numerosession = menage.getNumerosession();
             if (numerosession != null) {
                 numerosession = em.getReference(numerosession.getClass(), numerosession.getNumerosession());
@@ -120,8 +124,13 @@ public class MenageJpaController implements Serializable, DAOMenage{
                     oldMenageOfMotoCollectionMoto = em.merge(oldMenageOfMotoCollectionMoto);
                 }
             }
-            em.getTransaction().commit();
+            utx.commit();
         } catch (Exception ex) {
+            try {
+                utx.rollback();
+            } catch (Exception re) {
+                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
+            }
             if (findMenage(menage.getNumeromenage()) != null) {
                 throw new PreexistingEntityException("Menage " + menage + " already exists.", ex);
             }
@@ -134,11 +143,11 @@ public class MenageJpaController implements Serializable, DAOMenage{
     }
 
     @Override
-    public void edit(Menage menage) throws IllegalOrphanException, NonexistentEntityException, Exception {
+    public void edit(Menage menage) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
+            utx.begin();
             em = getEntityManager();
-            em.getTransaction().begin();
             Menage persistentMenage = em.find(Menage.class, menage.getNumeromenage());
             Sessions numerosessionOld = persistentMenage.getNumerosession();
             Sessions numerosessionNew = menage.getNumerosession();
@@ -257,8 +266,13 @@ public class MenageJpaController implements Serializable, DAOMenage{
                     }
                 }
             }
-            em.getTransaction().commit();
+            utx.commit();
         } catch (Exception ex) {
+            try {
+                utx.rollback();
+            } catch (Exception re) {
+                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
+            }
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
                 Integer id = menage.getNumeromenage();
@@ -275,11 +289,11 @@ public class MenageJpaController implements Serializable, DAOMenage{
     }
 
     @Override
-    public void destroy(Integer id) throws IllegalOrphanException, NonexistentEntityException {
+    public void destroy(Integer id) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
+            utx.begin();
             em = getEntityManager();
-            em.getTransaction().begin();
             Menage menage;
             try {
                 menage = em.getReference(Menage.class, id);
@@ -323,7 +337,14 @@ public class MenageJpaController implements Serializable, DAOMenage{
                 panel = em.merge(panel);
             }
             em.remove(menage);
-            em.getTransaction().commit();
+            utx.commit();
+        } catch (Exception ex) {
+            try {
+                utx.rollback();
+            } catch (Exception re) {
+                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
+            }
+            throw ex;
         } finally {
             if (em != null) {
                 em.close();

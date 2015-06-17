@@ -7,6 +7,7 @@ package DAO;
 
 import DAO.exceptions.NonexistentEntityException;
 import DAO.exceptions.PreexistingEntityException;
+import DAO.exceptions.RollbackFailureException;
 import Entites.Activite;
 import Entites.ActivitePK;
 import java.io.Serializable;
@@ -19,6 +20,7 @@ import Entites.Panel;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.transaction.UserTransaction;
 
 /**
  *
@@ -26,26 +28,28 @@ import javax.persistence.EntityManagerFactory;
  */
 public class ActiviteJpaController implements Serializable {
 
-    public ActiviteJpaController(EntityManagerFactory emf) {
+    public ActiviteJpaController(UserTransaction utx, EntityManagerFactory emf) {
+        this.utx = utx;
         this.emf = emf;
     }
+    private UserTransaction utx = null;
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
-    public void create(Activite activite) throws PreexistingEntityException, Exception {
+    public void create(Activite activite) throws PreexistingEntityException, RollbackFailureException, Exception {
         if (activite.getActivitePK() == null) {
             activite.setActivitePK(new ActivitePK());
         }
+        activite.getActivitePK().setNumeromenage(activite.getPanel().getPanelPK().getNumeromenage());
         activite.getActivitePK().setNumeropersonne(activite.getPanel().getPanelPK().getNumeropersonne());
         activite.getActivitePK().setNumerosession(activite.getSessions().getNumerosession());
-        activite.getActivitePK().setNumeromenage(activite.getPanel().getPanelPK().getNumeromenage());
         EntityManager em = null;
         try {
+            utx.begin();
             em = getEntityManager();
-            em.getTransaction().begin();
             Sessions sessions = activite.getSessions();
             if (sessions != null) {
                 sessions = em.getReference(sessions.getClass(), sessions.getNumerosession());
@@ -65,8 +69,13 @@ public class ActiviteJpaController implements Serializable {
                 panel.getActiviteCollection().add(activite);
                 panel = em.merge(panel);
             }
-            em.getTransaction().commit();
+            utx.commit();
         } catch (Exception ex) {
+            try {
+                utx.rollback();
+            } catch (Exception re) {
+                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
+            }
             if (findActivite(activite.getActivitePK()) != null) {
                 throw new PreexistingEntityException("Activite " + activite + " already exists.", ex);
             }
@@ -78,14 +87,14 @@ public class ActiviteJpaController implements Serializable {
         }
     }
 
-    public void edit(Activite activite) throws NonexistentEntityException, Exception {
+    public void edit(Activite activite) throws NonexistentEntityException, RollbackFailureException, Exception {
+        activite.getActivitePK().setNumeromenage(activite.getPanel().getPanelPK().getNumeromenage());
         activite.getActivitePK().setNumeropersonne(activite.getPanel().getPanelPK().getNumeropersonne());
         activite.getActivitePK().setNumerosession(activite.getSessions().getNumerosession());
-        activite.getActivitePK().setNumeromenage(activite.getPanel().getPanelPK().getNumeromenage());
         EntityManager em = null;
         try {
+            utx.begin();
             em = getEntityManager();
-            em.getTransaction().begin();
             Activite persistentActivite = em.find(Activite.class, activite.getActivitePK());
             Sessions sessionsOld = persistentActivite.getSessions();
             Sessions sessionsNew = activite.getSessions();
@@ -116,8 +125,13 @@ public class ActiviteJpaController implements Serializable {
                 panelNew.getActiviteCollection().add(activite);
                 panelNew = em.merge(panelNew);
             }
-            em.getTransaction().commit();
+            utx.commit();
         } catch (Exception ex) {
+            try {
+                utx.rollback();
+            } catch (Exception re) {
+                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
+            }
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
                 ActivitePK id = activite.getActivitePK();
@@ -133,11 +147,11 @@ public class ActiviteJpaController implements Serializable {
         }
     }
 
-    public void destroy(ActivitePK id) throws NonexistentEntityException {
+    public void destroy(ActivitePK id) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
+            utx.begin();
             em = getEntityManager();
-            em.getTransaction().begin();
             Activite activite;
             try {
                 activite = em.getReference(Activite.class, id);
@@ -156,7 +170,14 @@ public class ActiviteJpaController implements Serializable {
                 panel = em.merge(panel);
             }
             em.remove(activite);
-            em.getTransaction().commit();
+            utx.commit();
+        } catch (Exception ex) {
+            try {
+                utx.rollback();
+            } catch (Exception re) {
+                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
+            }
+            throw ex;
         } finally {
             if (em != null) {
                 em.close();

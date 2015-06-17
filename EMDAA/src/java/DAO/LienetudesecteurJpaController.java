@@ -7,6 +7,7 @@ package DAO;
 
 import DAO.exceptions.NonexistentEntityException;
 import DAO.exceptions.PreexistingEntityException;
+import DAO.exceptions.RollbackFailureException;
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
@@ -20,6 +21,7 @@ import Entites.LienetudesecteurPK;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.transaction.UserTransaction;
 
 /**
  *
@@ -27,16 +29,18 @@ import javax.persistence.EntityManagerFactory;
  */
 public class LienetudesecteurJpaController implements Serializable {
 
-    public LienetudesecteurJpaController(EntityManagerFactory emf) {
+    public LienetudesecteurJpaController(UserTransaction utx, EntityManagerFactory emf) {
+        this.utx = utx;
         this.emf = emf;
     }
+    private UserTransaction utx = null;
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
-    public void create(Lienetudesecteur lienetudesecteur) throws PreexistingEntityException, Exception {
+    public void create(Lienetudesecteur lienetudesecteur) throws PreexistingEntityException, RollbackFailureException, Exception {
         if (lienetudesecteur.getLienetudesecteurPK() == null) {
             lienetudesecteur.setLienetudesecteurPK(new LienetudesecteurPK());
         }
@@ -45,8 +49,8 @@ public class LienetudesecteurJpaController implements Serializable {
         lienetudesecteur.getLienetudesecteurPK().setNumeroiris(lienetudesecteur.getIris().getNumeroiris());
         EntityManager em = null;
         try {
+            utx.begin();
             em = getEntityManager();
-            em.getTransaction().begin();
             Secteur secteur = lienetudesecteur.getSecteur();
             if (secteur != null) {
                 secteur = em.getReference(secteur.getClass(), secteur.getNumerosecteur());
@@ -75,8 +79,13 @@ public class LienetudesecteurJpaController implements Serializable {
                 etude.getLienetudesecteurCollection().add(lienetudesecteur);
                 etude = em.merge(etude);
             }
-            em.getTransaction().commit();
+            utx.commit();
         } catch (Exception ex) {
+            try {
+                utx.rollback();
+            } catch (Exception re) {
+                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
+            }
             if (findLienetudesecteur(lienetudesecteur.getLienetudesecteurPK()) != null) {
                 throw new PreexistingEntityException("Lienetudesecteur " + lienetudesecteur + " already exists.", ex);
             }
@@ -88,14 +97,14 @@ public class LienetudesecteurJpaController implements Serializable {
         }
     }
 
-    public void edit(Lienetudesecteur lienetudesecteur) throws NonexistentEntityException, Exception {
+    public void edit(Lienetudesecteur lienetudesecteur) throws NonexistentEntityException, RollbackFailureException, Exception {
         lienetudesecteur.getLienetudesecteurPK().setNumerosecteur(lienetudesecteur.getSecteur().getNumerosecteur());
         lienetudesecteur.getLienetudesecteurPK().setNumeroetude(lienetudesecteur.getEtude().getNumeroetude());
         lienetudesecteur.getLienetudesecteurPK().setNumeroiris(lienetudesecteur.getIris().getNumeroiris());
         EntityManager em = null;
         try {
+            utx.begin();
             em = getEntityManager();
-            em.getTransaction().begin();
             Lienetudesecteur persistentLienetudesecteur = em.find(Lienetudesecteur.class, lienetudesecteur.getLienetudesecteurPK());
             Secteur secteurOld = persistentLienetudesecteur.getSecteur();
             Secteur secteurNew = lienetudesecteur.getSecteur();
@@ -140,8 +149,13 @@ public class LienetudesecteurJpaController implements Serializable {
                 etudeNew.getLienetudesecteurCollection().add(lienetudesecteur);
                 etudeNew = em.merge(etudeNew);
             }
-            em.getTransaction().commit();
+            utx.commit();
         } catch (Exception ex) {
+            try {
+                utx.rollback();
+            } catch (Exception re) {
+                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
+            }
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
                 LienetudesecteurPK id = lienetudesecteur.getLienetudesecteurPK();
@@ -157,11 +171,11 @@ public class LienetudesecteurJpaController implements Serializable {
         }
     }
 
-    public void destroy(LienetudesecteurPK id) throws NonexistentEntityException {
+    public void destroy(LienetudesecteurPK id) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
+            utx.begin();
             em = getEntityManager();
-            em.getTransaction().begin();
             Lienetudesecteur lienetudesecteur;
             try {
                 lienetudesecteur = em.getReference(Lienetudesecteur.class, id);
@@ -185,7 +199,14 @@ public class LienetudesecteurJpaController implements Serializable {
                 etude = em.merge(etude);
             }
             em.remove(lienetudesecteur);
-            em.getTransaction().commit();
+            utx.commit();
+        } catch (Exception ex) {
+            try {
+                utx.rollback();
+            } catch (Exception re) {
+                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
+            }
+            throw ex;
         } finally {
             if (em != null) {
                 em.close();

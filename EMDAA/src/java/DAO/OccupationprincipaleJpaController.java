@@ -7,6 +7,7 @@ package DAO;
 
 import DAO.exceptions.NonexistentEntityException;
 import DAO.exceptions.PreexistingEntityException;
+import DAO.exceptions.RollbackFailureException;
 import Entites.Occupationprincipale;
 import Entites.OccupationprincipalePK;
 import java.io.Serializable;
@@ -19,6 +20,7 @@ import Entites.Panel;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.transaction.UserTransaction;
 
 /**
  *
@@ -26,26 +28,28 @@ import javax.persistence.EntityManagerFactory;
  */
 public class OccupationprincipaleJpaController implements Serializable {
 
-    public OccupationprincipaleJpaController(EntityManagerFactory emf) {
+    public OccupationprincipaleJpaController(UserTransaction utx, EntityManagerFactory emf) {
+        this.utx = utx;
         this.emf = emf;
     }
+    private UserTransaction utx = null;
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
-    public void create(Occupationprincipale occupationprincipale) throws PreexistingEntityException, Exception {
+    public void create(Occupationprincipale occupationprincipale) throws PreexistingEntityException, RollbackFailureException, Exception {
         if (occupationprincipale.getOccupationprincipalePK() == null) {
             occupationprincipale.setOccupationprincipalePK(new OccupationprincipalePK());
         }
-        occupationprincipale.getOccupationprincipalePK().setNumeromenage(occupationprincipale.getPanel().getPanelPK().getNumeromenage());
         occupationprincipale.getOccupationprincipalePK().setNumeropersonne(occupationprincipale.getPanel().getPanelPK().getNumeropersonne());
+        occupationprincipale.getOccupationprincipalePK().setNumeromenage(occupationprincipale.getPanel().getPanelPK().getNumeromenage());
         occupationprincipale.getOccupationprincipalePK().setNumerosession(occupationprincipale.getSessions().getNumerosession());
         EntityManager em = null;
         try {
+            utx.begin();
             em = getEntityManager();
-            em.getTransaction().begin();
             Sessions sessions = occupationprincipale.getSessions();
             if (sessions != null) {
                 sessions = em.getReference(sessions.getClass(), sessions.getNumerosession());
@@ -65,8 +69,13 @@ public class OccupationprincipaleJpaController implements Serializable {
                 panel.getOccupationprincipaleCollection().add(occupationprincipale);
                 panel = em.merge(panel);
             }
-            em.getTransaction().commit();
+            utx.commit();
         } catch (Exception ex) {
+            try {
+                utx.rollback();
+            } catch (Exception re) {
+                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
+            }
             if (findOccupationprincipale(occupationprincipale.getOccupationprincipalePK()) != null) {
                 throw new PreexistingEntityException("Occupationprincipale " + occupationprincipale + " already exists.", ex);
             }
@@ -78,14 +87,14 @@ public class OccupationprincipaleJpaController implements Serializable {
         }
     }
 
-    public void edit(Occupationprincipale occupationprincipale) throws NonexistentEntityException, Exception {
-        occupationprincipale.getOccupationprincipalePK().setNumeromenage(occupationprincipale.getPanel().getPanelPK().getNumeromenage());
+    public void edit(Occupationprincipale occupationprincipale) throws NonexistentEntityException, RollbackFailureException, Exception {
         occupationprincipale.getOccupationprincipalePK().setNumeropersonne(occupationprincipale.getPanel().getPanelPK().getNumeropersonne());
+        occupationprincipale.getOccupationprincipalePK().setNumeromenage(occupationprincipale.getPanel().getPanelPK().getNumeromenage());
         occupationprincipale.getOccupationprincipalePK().setNumerosession(occupationprincipale.getSessions().getNumerosession());
         EntityManager em = null;
         try {
+            utx.begin();
             em = getEntityManager();
-            em.getTransaction().begin();
             Occupationprincipale persistentOccupationprincipale = em.find(Occupationprincipale.class, occupationprincipale.getOccupationprincipalePK());
             Sessions sessionsOld = persistentOccupationprincipale.getSessions();
             Sessions sessionsNew = occupationprincipale.getSessions();
@@ -116,8 +125,13 @@ public class OccupationprincipaleJpaController implements Serializable {
                 panelNew.getOccupationprincipaleCollection().add(occupationprincipale);
                 panelNew = em.merge(panelNew);
             }
-            em.getTransaction().commit();
+            utx.commit();
         } catch (Exception ex) {
+            try {
+                utx.rollback();
+            } catch (Exception re) {
+                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
+            }
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
                 OccupationprincipalePK id = occupationprincipale.getOccupationprincipalePK();
@@ -133,11 +147,11 @@ public class OccupationprincipaleJpaController implements Serializable {
         }
     }
 
-    public void destroy(OccupationprincipalePK id) throws NonexistentEntityException {
+    public void destroy(OccupationprincipalePK id) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
+            utx.begin();
             em = getEntityManager();
-            em.getTransaction().begin();
             Occupationprincipale occupationprincipale;
             try {
                 occupationprincipale = em.getReference(Occupationprincipale.class, id);
@@ -156,7 +170,14 @@ public class OccupationprincipaleJpaController implements Serializable {
                 panel = em.merge(panel);
             }
             em.remove(occupationprincipale);
-            em.getTransaction().commit();
+            utx.commit();
+        } catch (Exception ex) {
+            try {
+                utx.rollback();
+            } catch (Exception re) {
+                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
+            }
+            throw ex;
         } finally {
             if (em != null) {
                 em.close();
